@@ -1,0 +1,23 @@
+# 🌦️ Weather App
+
+A simple weather web app that lets you check current weather conditions by city name using the OpenWeatherMap API.
+
+## 🛠️ Built With
+- HTML
+- CSS
+- JavaScript
+- OpenWeatherMap API
+
+## 🔥 Features
+- Search weather by city
+- Dynamic icon + background based on weather
+- Responsive card design
+- Real-time temperature, wind & humidity
+
+## 🚀 How to Run
+1. Clone the repo
+2. Open `index.html` in your browser
+
+## 🌐 Live Demo
+[Click here to view](https://Tushar9184.github.io/weatherapi)
+
