@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather app</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="card">
+        <div class="search">
+            <input type="text" placeholder="Enter city name" spellcheck="false" id="search">
+            <button><img src="images/search.png" alt="search" id="button"></button>
+
+        </div>
+        <div class="weather">
+            <img src="images/rain.png" alt="rain" class="weather-icon">
+            <h1 class="temp">22°C</h1>
+            <h2 class="city"> Delhi</h2>
+            <div class="details">
+                <div class="col">
+                    <img src="images/humidity.png" >
+                    <div>
+                        <p class="humidity">50%</p>
+                        <p>humidity</p>
+                    </div>
+                </div>
+                <div class="col">
+                    <img src="images/wind.png" >
+                    <div>
+                        <p class="wind">15km/h</p>
+                        <p>wind</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        let weathericon = document.querySelector(".weather-icon");
+let city = document.querySelector(".city");
+let temp = document.querySelector(".temp");
+let wind = document.querySelector(".wind");
+let humidity = document.querySelector(".humidity");
+let input = document.getElementById("search");
+let butn = document.getElementById("button");
+
+async function updateweather(name) {
+    try {
+        const apiKey = "6d8f4e6ee6705e9835c38a92f1cee5bd";
+        const url = `https://api.openweathermap.org/data/2.5/weather?q=${name}&appid=${apiKey}&units=metric`;
+        let x = await fetch(url);
+        
+
+        let data = await x.json();
+        if (data.cod === "404") {
+  alert("City not found!");
+  return;
+}
+        console.log(data);
+
+        let main = data.main;
+        let winds = data.wind;
+        let cities = data.name;
+
+        city.textContent = cities;
+        temp.textContent = `${main.temp}°C`;
+        humidity.textContent = `${main.humidity}%`;
+        wind.textContent = `${winds.speed} km/h`;
+
+        let weatherMain = data.weather[0].main;
+
+        if (weatherMain === "Clouds") {
+            weathericon.src = "images/clouds.png";
+        } else if (weatherMain === "Clear") {
+            weathericon.src = "images/clear.png";
+        } else if (weatherMain === "Drizzle") {
+            weathericon.src = "images/drizzle.png";
+        } else if (weatherMain === "Mist") {
+            weathericon.src = "images/mist.png";
+        } else if (weatherMain === "Snow") {
+            weathericon.src = "images/snow.png";
+        } else {
+            weathericon.src = "images/rain.png";
+        }
+    } catch (err) {
+        console.log("hey there is an error: " + err);
+    }
+}
+
+butn.addEventListener("click", () => {
+    updateweather(input.value);
+});
+
+input.addEventListener("keydown", (event) => {
+    if (event.key === "Enter") {
+        updateweather(input.value);
+    }
+});
+
+    
+    </script>
+</body>
+</html>
